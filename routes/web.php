@@ -41,6 +41,14 @@ Route::group(['middleware' => 'firewall.all'], function () {
     Route::get('/page/{slug}', [FrontController::class, 'dynamicPage'])->name('front.dynamicPage');
     Route::get('/generate-sitemap', [FrontController::class, 'generateSitemaps'])->name('generate-sitemaps');
 
+    Route::get('/paypal/cancel', function () {
+        return redirect()->route('front.checkout');
+    })->name('paypal.cancel');
+    Route::get('/paypal/success', function () {
+        $this->checkout();
+        return redirect()->route('front.thankyou');
+    })->name('paypal.success');
+
     Route::middleware('auth')->group(function () {
         Route::get('/mon-compte', [FrontController::class, 'myaccount'])->name('front.myaccount');
     });

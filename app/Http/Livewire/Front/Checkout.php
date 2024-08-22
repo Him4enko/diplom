@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Front;
 
+use App\Helpers;
 use App\Mail\CheckoutMail;
 use App\Mail\CustomerRegistrationMail;
+use App\Models\Keys;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Shipping;
@@ -17,6 +19,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use PayPalCheckoutSdk\Core\PayPalHttpClient;
+use PayPalCheckoutSdk\Core\SandboxEnvironment;
+use PayPalCheckoutSdk\Core\ProductionEnvironment;
 
 class Checkout extends Component
 {
@@ -66,6 +71,8 @@ class Checkout extends Component
 
     public $productId;
 
+    private $keys = [];
+
     public function confirmed()
     {
         Cart::instance('shopping')->remove($this->productId);
@@ -83,6 +90,17 @@ class Checkout extends Component
         return Cart::instance('shopping')->subtotal();
     }
 
+    private function getPayPalClient()
+    {
+        $clientId = Helpers::settings('paypal_client_id');
+        $clientSecret = Helpers::settings('paypal_client_secret');
+
+        $environment = new SandboxEnvironment($clientId, $clientSecret);
+
+        return new PayPalHttpClient($environment);
+    }
+
+
     public function checkout()
     {
         $this->validate([
@@ -97,23 +115,6 @@ class Checkout extends Component
 
         $shipping = Shipping::find($this->shipping_id);
 
-        if ( ! auth()->check()) {
-            $user = User::create([
-                'first_name' => $this->first_name,
-                'last_name'  => $this->last_name,
-                'city'       => $this->city,
-                'country'    => $this->country,
-                'address'    => $this->address,
-                'phone'      => $this->phone,
-                'email'      => $this->email,
-                'password'   => bcrypt($this->password),
-            ]);
-
-            Mail::to($user->email)->send(new CustomerRegistrationMail($user));
-
-            Auth::login($user);
-        }
-
         $order = Order::create([
             'reference'        => Order::generateReference(),
             'shipping_id'      => $this->shipping_id,
@@ -123,7 +124,7 @@ class Checkout extends Component
             'first_name'       => $this->first_name,
             'shipping_name'    => $this->first_name.'-'.$this->last_name,
             'last_name'        => $this->last_name,
-            'email'            => $this->email,
+            'email'            => auth()->user()->email,
             'address'          => $this->address,
             'shipping_address' => $this->address,
             'city'             => $this->city,
@@ -136,9 +137,7 @@ class Checkout extends Component
             'payment_status'   => Order::PAYMENT_STATUS_PENDING,
         ]);
 
-        Mail::to($order->user->email)->send(new CheckoutMail($order, $user));
-
-        foreach (Cart::instance('shopping') as $item) {
+        foreach (Cart::instance('shopping')->content() as $item) {
             $orderProduct = new OrderProduct([
                 'order_id'   => $order->id,
                 'product_id' => $item->id,
@@ -148,8 +147,27 @@ class Checkout extends Component
                 'total'      => $item->total,
             ]);
 
+            $keys = Keys::with(['product'])
+                ->where('product_id', $item->id)
+                ->where('is_activated', 0)
+                ->limit($item->qty)
+                ->get();
+
+            foreach ($keys as $key) {
+                $key->order_id = $order->id;
+                $key->is_activated = 1;
+                $key->user_id = auth()->user()->id;
+                $key->save();
+
+                $this->keys[] = $key;
+            }
+
             $orderProduct->save();
         }
+
+
+
+        Mail::to($order->user->email)->send(new CheckoutMail($order, auth()->user(), $this->keys));
 
         Cart::instance('shopping')->destroy();
 
@@ -225,6 +243,7 @@ class Checkout extends Component
 
     public function render(): View|Factory
     {
-        return view('livewire.front.checkout');
+        $user = auth()->user();
+        return view('livewire.front.checkout', compact('user'));
     }
 }

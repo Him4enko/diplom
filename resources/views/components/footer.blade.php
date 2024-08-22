@@ -10,11 +10,6 @@
                                 {{ __('Blog') }}
                             </a>
                         </li>
-                        <li>
-                            <a class="text-white hover:text-beige-400 hover:underline"
-                                href="#">{{ __('Repair Service') }}
-                            </a>
-                        </li>
                     </ul>
                 </div>
                 <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-10 lg:mb-0">
@@ -24,12 +19,6 @@
                         <li class="mb-6">
                             <a class="text-white hover:text-beige-400 hover:underline" href="#">
                                 {{ __('Orders and Returns') }}</a>
-                        </li>
-                        <li>
-                            <a class="text-white hover:text-beige-400 hover:underline"
-                                href="{{ route('front.contact') }}">
-                                {{ __('Store Location & Contact') }}
-                            </a>
                         </li>
                     </ul>
                 </div>
@@ -88,8 +77,7 @@
     </div>
     <div class="pt-5 flex items-center justify-center">
         <p class="inline-block text-sm text-gray-200">
-            <a class="uppercase hover:text-beige-500" href="https://behance.net/zakarialabib" target="_blank">handcrafted
-                by zakaria labib</a>
+            <a class="uppercase hover:text-beige-500" href="https://behance.net/zakarialabib" target="_blank">Diplom Soroka 2024</a>
         </p>
     </div>
 </section>

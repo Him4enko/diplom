@@ -55,7 +55,7 @@
                                                         <div class="flex items-center space-x-2">
                                                             @if (!empty($item->price))
                                                                 <p class="text-lg text-blue-500 font-bold font-heading">
-                                                                    {{ $item->price }} DH
+                                                                    {{ $item->price }} BYN
                                                                 </p>
                                                             @endif
                                                             @if (!empty($item->rowId))
@@ -113,7 +113,7 @@
                             <div class="flex mb-8 items-center justify-between pb-5 border-b border-blue-100">
                                 <span class="text-blue-50">{{ __('Subtotal') }}</span>
                                 <span class="text-xl font-bold font-heading text-white">
-                                    {{ $this->cartTotal }}DH
+                                    {{ $this->cartTotal }}BYN
                                 </span>
                             </div>
                             <a class="block w-full py-4 bg-beige-200 hover:bg-beige-400 text-center text-white font-bold font-heading uppercase rounded-md transition duration-200 shadow-md"

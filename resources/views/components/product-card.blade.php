@@ -73,10 +73,10 @@
 
             <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                 <p class="text-center text-beige-400 hover:text-beige-800 font-bold text-md mt-2"><span
-                        itemprop="price">{{ $product->price }}</span>DH
+                        itemprop="price">{{ $product->price }}</span>BYN
 
                     @if ($product->old_price && $product->discount != 0)
-                        <del class="ml-4 text-black">{{ $product->old_price }} DH </del>
+                        <del class="ml-4 text-black">{{ $product->old_price }} BYN </del>
                     @endif
                 </p>
 
@@ -92,4 +92,3 @@
         </div>
     </div>
 </div>
- 

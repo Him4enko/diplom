@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ShippingController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\KeyController;
 //use App\Http\Controllers\Admin\SmptController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Livewire\Admin\Backup\Index as BackupIndex;
@@ -85,4 +86,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'r
     Route::get('/roles', [RolesController::class, 'index'])->name('roles');
     Route::get('/permissions', [UsersController::class, 'permissions'])->name('permissions');
     Route::get('/currencies', [SettingController::class, 'currencies'])->name('currencies');
+
+    // keys
+    Route::get('/keys', [KeyController::class, 'index'])->name('keys');;
 });

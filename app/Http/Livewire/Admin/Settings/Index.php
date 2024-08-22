@@ -82,6 +82,9 @@ class Index extends Component
 
     public $site_contact;
 
+    public $paypal_client_id;
+    public $paypal_client_secret;
+
     protected $listeners = ['save', 'uploadFavicon', 'uploadLogo'];
 
     public function mount()
@@ -114,6 +117,8 @@ class Index extends Component
         $this->site_privacy = Helpers::settings('site_privacy');
         $this->site_about = Helpers::settings('site_about');
         $this->site_contact = Helpers::settings('site_contact');
+        $this->paypal_client_id = Helpers::settings('paypal_client_id');
+        $this->paypal_client_secret = Helpers::settings('paypal_client_secret');
     }
 
     public function save()
@@ -145,6 +150,8 @@ class Index extends Component
             'site_privacy'             => $this->site_privacy,
             'site_about'               => $this->site_about,
             'site_contact'             => $this->site_contact,
+            'paypal_client_id'         => $this->paypal_client_id,
+            'paypal_client_secret'     => $this->paypal_client_secret,
         ];
 
         foreach ($settings as $key => $value) {

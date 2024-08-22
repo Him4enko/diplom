@@ -12,7 +12,7 @@ class Order extends Model
 {
     use HasAdvancedFilter;
     use SoftDeletes;
-    
+
     public const STATUS_PENDING = 0;
 
     public const STATUS_PROCESSING = 1;
@@ -109,6 +109,7 @@ class Order extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'order_products')->withPivot('qty', 'price', 'tax', 'total');
+        return $this->belongsToMany(Product::class, 'order_products')->withPivot('qty', 'price', 'total');
     }
+
 }

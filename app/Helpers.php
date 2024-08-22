@@ -109,9 +109,9 @@ class Helpers
                 'verify_peer_name' => false,
             ],
         ];
-    
+
         $context = stream_context_create($opts);
-    
+
         $image = file_get_contents($image_url, false, $context);
         $name = Str::slug($productName).'-'.sprintf('%02d', 0).'.jpg';
         $path = public_path().'/images/products/'.$name;
@@ -240,13 +240,13 @@ class Helpers
             });
         }
 
-        $watermark = Image::make(public_path('images/logo/logo.png'));
-        $watermark->opacity(25);
-        $watermarkWidth = intval($width / 5);
-        $watermarkHeight = intval($watermarkWidth * $watermark->height() / $watermark->width());
-        $img->insert($watermark, 'bottom-left', 20, 20)->resizeCanvas($width, $height, 'center', false, '#ffffff');
-
-        $img->stream();
+//        $watermark = Image::make(public_path('images/logo/logo.png'));
+//        $watermark->opacity(25);
+//        $watermarkWidth = intval($width / 5);
+//        $watermarkHeight = intval($watermarkWidth * $watermark->height() / $watermark->width());
+//        $img->insert($watermark, 'bottom-left', 20, 20)->resizeCanvas($width, $height, 'center', false, '#ffffff');
+//
+//        $img->stream();
 
         Storage::disk('local_files')->put('products/'.$imageName, $img, 'public');
 

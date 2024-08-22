@@ -21,7 +21,7 @@ enum ShippingStatus: string
      */
     public function getDescription(): string
     {
-        return match ($this)
+        return match ($this->value)
         {
             ShippingStatus::PENDING => "Shipping is pending needs review",
             ShippingStatus::PREPARING => "Shipping is getting prepared",
@@ -33,5 +33,5 @@ enum ShippingStatus: string
         };
     }
 
-    
+
 }

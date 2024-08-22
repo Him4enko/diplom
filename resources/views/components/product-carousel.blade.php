@@ -4,7 +4,7 @@
     $gallery = json_decode($product->gallery);
 @endphp
 
-<div class="relative mb-10">
+<div class="relative mb-10" wire:ignore>
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
             <!-- Slides -->
@@ -37,7 +37,6 @@
     </div>
 </div>
 
-@once
     @push('scripts')
         <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
         <script>
@@ -61,4 +60,3 @@
     @push('styles')
         <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     @endpush
-@endonce

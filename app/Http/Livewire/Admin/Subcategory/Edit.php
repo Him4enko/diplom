@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Subcategory;
 
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
@@ -50,7 +51,7 @@ class Edit extends Component
         $this->editModal = true;
     }
 
-  
+
     public function update()
     {
         abort_if(Gate::denies('subcategory_update'), 403);
@@ -66,17 +67,15 @@ class Edit extends Component
 
             Storage::disk('local_files')->put('subcategories/'.$imageName, $img, 'public');
 
-            $this->brand->image = $imageName;
-
             $this->subcategory->image = $imageName;
         }
 
         $this->subcategory->save();
 
         $this->alert('success', __('Subcategory updated successfully'));
-        
+
         $this->emit('refreshIndex');
-        
+
         $this->editModal = false;
 
     }

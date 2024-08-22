@@ -26,7 +26,6 @@ class Index extends Component
     {
         return Product::where('featured', 1)
             ->active()
-            ->inRandomOrder()
             ->limit(4)
             ->get();
     }
@@ -35,7 +34,6 @@ class Index extends Component
     {
         return Product::where('best', 1)
             ->active()
-            ->inRandomOrder()
             ->limit(4)
             ->get();
     }
@@ -44,7 +42,6 @@ class Index extends Component
     {
         return Product::where('hot', 1)
             ->active()
-            ->inRandomOrder()
             ->limit(4)
             ->get();
     }

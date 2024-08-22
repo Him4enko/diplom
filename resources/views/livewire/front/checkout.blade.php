@@ -3,7 +3,7 @@
     <div class="flex flex-wrap -mx-4">
         <div class="w-full lg:w-1/2 px-4">
             <form wire:submit.prevent="checkout">
-                @if (auth()->check())
+                @if (!auth()->check())
                     <div class="flex my-5 items-center">
                         <span
                             class="inline-flex mr-8 items-center justify-center w-12 h-12 rounded-full bg-blue-300 text-white">1</span>
@@ -34,9 +34,11 @@
                         <div class="w-full px-2">
                             <label class="font-bold font-heading text-gray-600"
                                 for="">{{ __('E-mail address') }}</label>
-                            <input wire:model="email"
-                                class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                                type="email">
+                            <input wire:ignore
+                                   value="{{ $user->email }}"
+                                   readonly
+                                   class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                                   type="email">
                             <x-input-error :messages="$errors->get('email')" for="email" class="mt-2" />
                         </div>
                     </div>
@@ -45,7 +47,7 @@
                 <div class="flex my-5 items-center">
                     <span
                         class="inline-flex mr-8 items-center justify-center w-12 h-12 rounded-full bg-beige-500 text-white">2</span>
-                    <h3 class="text-2xl font-bold font-heading">{{ __('Shipping informations') }}</h3>
+                    <h3 class="text-2xl font-bold font-heading">{{ __('Billing Information') }}</h3>
                 </div>
                 <div class="flex mb-5 items-center">
                     <div class="flex flex-wrap">
@@ -85,7 +87,7 @@
                         <div class="w-full md:w-1/2 px-4">
                             <label class="font-bold font-heading text-gray-600"
                                 for="">{{ __('Country') }}</label>
-                            <input wire:model="country" disabled
+                            <input wire:model="country"
                                 class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="text">
                             <x-input-error :messages="$errors->get('country')" for="country" class="mt-2" />
@@ -161,7 +163,7 @@
                                                 <div class="flex items-center space-x-2">
                                                     @if (!empty($item->price))
                                                         <p class="text-lg bg-beige-500 text-white font-bold font-heading">
-                                                            {{ $item->price }} DH
+                                                            {{ $item->price }} BYN
                                                         </p>
                                                     @endif
                                                     @if (!empty($item->rowId))
@@ -211,7 +213,7 @@
                             <div class="flex justify-between">
                                 <span class="font-medium">{{ __('Subtotal') }}</span>
                                 <span class="font-bold font-heading">
-                                    {{ $this->subTotal }} DH
+                                    {{ $this->subTotal }} BYN
                                 </span>
                             </div>
                         </div>
@@ -220,7 +222,7 @@
                                 <span class="font-medium">{{ __('Shipping') }}</span>
                                 @if (!empty($this->shipping))
                                     <span class="font-bold font-heading">
-                                        {{ $this->shipping->cost }} DH
+                                        {{ $this->shipping->cost }} BYN
                                     </span>
                                 @endif
                             </div>
@@ -230,7 +232,7 @@
                                 <span class="text-base md:text-xl font-bold font-heading">{{ __('Total') }}</span>
                                 @if (!empty($this->cartTotal))
                                 <span class="font-bold font-heading">
-                                    {{ $this->cartTotal }} DH
+                                    {{ $this->cartTotal }} BYN
                                 </span>
                                 @endif
                             </div>

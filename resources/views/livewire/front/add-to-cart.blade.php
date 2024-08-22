@@ -6,3 +6,4 @@
         {{ __('Add to cart') }}
     </button>
 </div>
+

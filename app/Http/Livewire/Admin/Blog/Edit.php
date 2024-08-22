@@ -20,11 +20,10 @@ class Edit extends Component
     use WithFileUploads;
 
     public $editModal = false;
-
     public $image;
-
+    public $categories;
+    public $languages;
     public $blog;
-
     public $listeners = ['editModal'];
 
     protected $rules = [
@@ -36,6 +35,13 @@ class Edit extends Component
         'blog.meta_title'  => 'nullable|max:100',
         'blog.meta_desc'   => 'nullable|max:200',
     ];
+
+    public function mount()
+    {
+        $this->categories = BlogCategory::select('title', 'id')->get();
+        $this->languages = Language::select('name', 'id')->get();
+    }
+
 
     public function render(): View|Factory
     {
@@ -70,7 +76,7 @@ class Edit extends Component
         $this->blog->save();
 
         $this->alert('success', __('Blog updated successfully.'));
-        
+
         $this->emit('refreshIndex');
 
         $this->editModal = false;

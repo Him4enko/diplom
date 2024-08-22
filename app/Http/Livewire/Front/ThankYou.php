@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Front;
 
+use App\Models\Keys;
 use App\Models\Order;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -18,6 +19,7 @@ class ThankYou extends Component
     public function mount($order)
     {
         $this->order = Order::findOrFail($order->id);
+        $this->keys = Keys::with('order')->where('order_id', $this->order->id)->get();
     }
 
     public function render(): View|Factory

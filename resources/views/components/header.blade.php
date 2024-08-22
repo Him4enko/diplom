@@ -4,7 +4,7 @@
             <div class="px-4 py-5 flex w-full items-center justify-between">
                 <a class="ml-4 mr-8 lg:text-3xl sm:text-xl font-bold font-heading text-white"
                     href="{{ route('front.index') }}">
-                    <img class="w-auto h-14 bg-black mix-blend-exclusion"
+                    <img class="w-auto h-14"
                         src="{{ asset('images/' . Helpers::settings('site_logo')) }}" loading="lazy"
                         alt="{{ Helpers::settings('site_title') }}" />
                 </a>
@@ -89,15 +89,15 @@
                 </svg>
             </button>
         </nav>
-      
-        <div class="fixed top-0 left-0 bottom-0 w-5/6 max-w-sm z-50 overflow-y-scroll" 
+
+        <div class="fixed top-0 left-0 bottom-0 w-5/6 max-w-sm z-50 overflow-y-scroll"
             x-show="isSidebar"
             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="-translate-x-full"
             x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-in duration-300"
             x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full"
             @click.away="isSidebar = false"
             x-cloak>
-            <div class="fixed inset-0 bg-gray-800 opacity-25 transition-opacity" 
+            <div class="fixed inset-0 bg-gray-800 opacity-25 transition-opacity"
             x-transition:enter="transition ease-out duration-100" x-transition:leave="transition ease-in duration-100"
             x-on:click="isSidebar = false"></div>
             {{-- <div class="fixed inset-0 bg-gray-800 opacity-25"></div> --}}

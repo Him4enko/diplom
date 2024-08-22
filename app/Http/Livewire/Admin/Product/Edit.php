@@ -70,7 +70,7 @@ class Edit extends Component
     public function mount($product)
     {
         $this->product = $product;
-        $product->subcategories = Subcategory::all(); // Предположим, у вас есть модель Subcategory
+//        $product->subcategories = Subcategory::all();
     }
 
     public function QuillValueUpdated($value)

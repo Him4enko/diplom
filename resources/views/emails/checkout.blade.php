@@ -19,14 +19,21 @@
         <li>{{__('Billing Address')}}: {{ $order->billing_address }}</li>
         <li>{{__('Items Ordered')}}:</li>
         <ul>
-            @foreach ($order->order_products as $order_product)
-                <li>{{ $order_product->product->name }} x {{ $order_product->qty }}</li>
+            @foreach ($order->products as $order_product)
+                <li>{{ $order_product->name }} x {{ $order_product->pivot->qty }}</li>
             @endforeach
         </ul>
         <li>{{__('Subtotal')}}: {{ $order->subtotal }}</li>
         <li>{{__('Tax')}}: {{ $order->tax }}</li>
         <li>{{__('Shipping')}}: {{ $order->shipping }}</li>
         <li>{{__('Total')}}: {{ $order->total }}</li>
+
+        Your content here
+        <ul>
+            @foreach ($keys as $key)
+                <li>{{ $key->key }}</li>
+            @endforeach
+        </ul>
     </ul>
     <p>{{__('Your order has been shipped and you will receive an email with tracking information shortly.')}}</p>
     <p>{{__('Thank you for shopping with us!')}}</p>

@@ -36,6 +36,8 @@ class Create extends Component
         'blog.meta_desc'   => 'nullable|max:200',
     ];
 
+    private array $listsForFields;
+
     public function mount(Blog $blog)
     {
         $this->blog = $blog;

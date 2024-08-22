@@ -129,15 +129,15 @@
                         </div>
 
                         <br>
-                        <span class="text-red-500 text-xs">{{ $product->category ? $product->category->name : 'Not linked, please enter a category' }}</span> - 
+                        <span class="text-red-500 text-xs">{{ $product->category ? $product->category->name : 'Not linked, please enter a category' }}</span> -
                         <span class="text-red-500 text-xs">{{ $product->brand ? $product->brand->name : 'Not linked, please enter a brand' }}</span>
 
                     </x-table.td>
 
                     <x-table.td>
-                        {{ $product->price }}DH
+                        {{ $product->price }}BYN
                         @if ($product->old_price)
-                            // {{ $product->old_price }}DH
+                            // {{ $product->old_price }}BYN
                         @endif
                     </x-table.td>
 
